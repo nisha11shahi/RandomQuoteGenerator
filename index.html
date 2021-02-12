@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Quotes</title>
+  </head>
+  <style>
+    * {
+      transition-duration: 500ms;
+    }
+    body {
+      background-color: coral;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 60vh;
+    }
+    #titleWrapper {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+    #title {
+      font-size: 2em;
+      font-family: "Courier New", Courier, monospace;
+    }
+    #buttonWrapper {
+      display: flex;
+      justify-content: center;
+    }
+    .button {
+      background-color: honeydew;
+      font-size: 26px;
+      cursor: pointer;
+      border: none;
+      padding: 15px 30px;
+      font-family: "Courier New", Courier, monospace;
+    }
+    .button:hover {
+      background-color: khaki;
+    }
+    #quoteWrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      text-align: center;
+      max-width: 1000px;
+    }
+    p#quote,
+    p#author {
+      font-family: "Courier New", Courier, monospace;
+      font-weight: bold;
+    }
+  </style>
+  <body>
+    <div id="titleWrapper">
+      <p id="title">Welcome to my quote generator site</p>
+    </div>
+    <div id="buttonWrapper">
+      <button class="button" onclick="generateQuote()">Generate</button>
+    </div>
+    <div id="quoteWrapper"><p id="quote"></p></div>
+    <div id="authorWrapper"><p id="author"></p></div>
+    <script>
+      const generateQuote = () => {
+        fetch("http://staging.quotable.io/random")
+          .then((Response) => Response.json())
+          .then((data) => {
+            document.querySelector("#quote").innerHTML = `"${data.content}"`;
+            document.querySelector("#author").innerHTML = `-${data.author}`;
+          });
+      };
+    </script>
+  </body>
+</html>
